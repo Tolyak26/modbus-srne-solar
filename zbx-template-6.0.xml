@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.0</version>
+    <date>2024-04-28T02:23:41Z</date>
+    <groups>
+        <group>
+            <uuid>e19a8a3bbce943fa8f5d9f658b838263</uuid>
+            <name>GMK</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <uuid>c3e41e312dfc4859b058f271f53be005</uuid>
+            <template>modbus-srne-solar</template>
+            <name>modbus-srne-solar</name>
+            <groups>
+                <group>
+                    <name>GMK</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>a905bb0fbcef44ef9072636fdf4fd3b6</uuid>
+                    <name>Батарея - Ток заряда за сутки</name>
+                    <type>DEPENDENT</type>
+                    <key>bat_charge_ah</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>A/ч</units>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.bat_charge_ah</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>modbus-srne-solar.py[&quot;{HOST.IP}&quot;,&quot;-p {$MODBUS_TCPPORT}&quot;,&quot;-u {$MODBUS_UID}&quot;,&quot;-a {$MODBUS_ADDRESS}&quot;,&quot;-c {$MODBUS_COUNT}&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Battery Information</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>d74189b3ac354590812afb5d9f23d96d</uuid>
+                    <name>Батарея - Ток заряда</name>
+                    <type>DEPENDENT</type>
+                    <key>bat_charge_current</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>A</units>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.bat_charge_current</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>modbus-srne-solar.py[&quot;{HOST.IP}&quot;,&quot;-p {$MODBUS_TCPPORT}&quot;,&quot;-u {$MODBUS_UID}&quot;,&quot;-a {$MODBUS_ADDRESS}&quot;,&quot;-c {$MODBUS_COUNT}&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Battery Information</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>e81df7ef36524ed08fc7cb7417c8beac</uuid>
+                    <name>Батарея - Ток разряда за сутки</name>
+                    <type>DEPENDENT</type>
+                    <key>bat_discharge_ah</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>A/ч</units>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.bat_discharge_ah</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>modbus-srne-solar.py[&quot;{HOST.IP}&quot;,&quot;-p {$MODBUS_TCPPORT}&quot;,&quot;-u {$MODBUS_UID}&quot;,&quot;-a {$MODBUS_ADDRESS}&quot;,&quot;-c {$MODBUS_COUNT}&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Battery Information</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>f7efbde39ddf479eb3136e88a3caa497</uuid>
+                    <name>Батарея - Ёмкость</name>
+                    <type>DEPENDENT</type>
+                    <key>bat_soc</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.bat_soc</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>modbus-srne-solar.py[&quot;{HOST.IP}&quot;,&quot;-p {$MODBUS_TCPPORT}&quot;,&quot;-u {$MODBUS_UID}&quot;,&quot;-a {$MODBUS_ADDRESS}&quot;,&quot;-c {$MODBUS_COUNT}&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Battery Information</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>4681d2a7ee6b4a9aa4cceb577268dfd1</uuid>
+                            <expression>nodata(/modbus-srne-solar/bat_soc,30m)=1</expression>
+                            <name>Нет новых данных</name>
+                            <priority>INFO</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>8515abab4f3544079627ce14f5e1dc27</uuid>
+                    <name>Температура - Батарея</name>
+                    <type>DEPENDENT</type>
+                    <key>bat_temperature</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>°C</units>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.bat_temperature</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>modbus-srne-solar.py[&quot;{HOST.IP}&quot;,&quot;-p {$MODBUS_TCPPORT}&quot;,&quot;-u {$MODBUS_UID}&quot;,&quot;-a {$MODBUS_ADDRESS}&quot;,&quot;-c {$MODBUS_COUNT}&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Battery Information</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>ec5849b602454106afe218bec6a7ac50</uuid>
+                    <name>Батарея - Напряжение</name>
+                    <type>DEPENDENT</type>
+                    <key>bat_voltage</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>В</units>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.bat_voltage</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>modbus-srne-solar.py[&quot;{HOST.IP}&quot;,&quot;-p {$MODBUS_TCPPORT}&quot;,&quot;-u {$MODBUS_UID}&quot;,&quot;-a {$MODBUS_ADDRESS}&quot;,&quot;-c {$MODBUS_COUNT}&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Battery Information</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>79c1962785734f3885230628e7842d63</uuid>
+                            <expression>last(/modbus-srne-solar/bat_voltage)&lt;{$TRIG_BAT_VOLT}</expression>
+                            <name>Напряжение АКБ меньше {$TRIG_BAT_VOLT} В</name>
+                            <priority>HIGH</priority>
+                            <manual_close>YES</manual_close>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>UPS alert simple</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>4647380382a046a48f4523330cf2eeea</uuid>
+                    <name>Режим заряда</name>
+                    <type>DEPENDENT</type>
+                    <key>charge_mode</key>
+                    <delay>0</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.charge_mode</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>modbus-srne-solar.py[&quot;{HOST.IP}&quot;,&quot;-p {$MODBUS_TCPPORT}&quot;,&quot;-u {$MODBUS_UID}&quot;,&quot;-a {$MODBUS_ADDRESS}&quot;,&quot;-c {$MODBUS_COUNT}&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Controller Information</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>62814a64fc9749509c339e8164e741ac</uuid>
+                    <name>Температура - Устройство</name>
+                    <type>DEPENDENT</type>
+                    <key>device_temperature</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>°C</units>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.device_temperature</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>modbus-srne-solar.py[&quot;{HOST.IP}&quot;,&quot;-p {$MODBUS_TCPPORT}&quot;,&quot;-u {$MODBUS_UID}&quot;,&quot;-a {$MODBUS_ADDRESS}&quot;,&quot;-c {$MODBUS_COUNT}&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Controller Information</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>7c06e47663dc48e9834e1b0d2fb59378</uuid>
+                    <name>Ошибки</name>
+                    <type>DEPENDENT</type>
+                    <key>errors</key>
+                    <delay>0</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.errors</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>modbus-srne-solar.py[&quot;{HOST.IP}&quot;,&quot;-p {$MODBUS_TCPPORT}&quot;,&quot;-u {$MODBUS_UID}&quot;,&quot;-a {$MODBUS_ADDRESS}&quot;,&quot;-c {$MODBUS_COUNT}&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Controller Information</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>4a9e442c0208449e8b78fad06e2bda4a</uuid>
+                    <name>Нагрузка - Ток</name>
+                    <type>DEPENDENT</type>
+                    <key>load_current</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>А</units>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.load_current</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>modbus-srne-solar.py[&quot;{HOST.IP}&quot;,&quot;-p {$MODBUS_TCPPORT}&quot;,&quot;-u {$MODBUS_UID}&quot;,&quot;-a {$MODBUS_ADDRESS}&quot;,&quot;-c {$MODBUS_COUNT}&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DC Load Information</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>a307231c2f6841c8bf8e35eb0fa8c17d</uuid>
+                    <name>Нагрузка - Мощность</name>
+                    <type>DEPENDENT</type>
+                    <key>load_power</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>Вт</units>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.load_power</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>modbus-srne-solar.py[&quot;{HOST.IP}&quot;,&quot;-p {$MODBUS_TCPPORT}&quot;,&quot;-u {$MODBUS_UID}&quot;,&quot;-a {$MODBUS_ADDRESS}&quot;,&quot;-c {$MODBUS_COUNT}&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DC Load Information</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>8f7a669e7f114c82b34d679b8bfb37ae</uuid>
+                    <name>Нагрузка - Потребление ЭЭ за сутки</name>
+                    <type>DEPENDENT</type>
+                    <key>load_power_consum_kwh</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>КВт/ч</units>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.load_power_consum_kwh</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>modbus-srne-solar.py[&quot;{HOST.IP}&quot;,&quot;-p {$MODBUS_TCPPORT}&quot;,&quot;-u {$MODBUS_UID}&quot;,&quot;-a {$MODBUS_ADDRESS}&quot;,&quot;-c {$MODBUS_COUNT}&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Panel Information</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>f35559855ed148c5ac81c4c4c23e6fff</uuid>
+                    <name>Нагрузка - Напряжение</name>
+                    <type>DEPENDENT</type>
+                    <key>load_voltage</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>В</units>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.load_voltage</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>modbus-srne-solar.py[&quot;{HOST.IP}&quot;,&quot;-p {$MODBUS_TCPPORT}&quot;,&quot;-u {$MODBUS_UID}&quot;,&quot;-a {$MODBUS_ADDRESS}&quot;,&quot;-c {$MODBUS_COUNT}&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>DC Load Information</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>895667f1558f410d9488a257be70064a</uuid>
+                    <name>modbus-srne-solar.py</name>
+                    <type>EXTERNAL</type>
+                    <key>modbus-srne-solar.py[&quot;{HOST.IP}&quot;,&quot;-p {$MODBUS_TCPPORT}&quot;,&quot;-u {$MODBUS_UID}&quot;,&quot;-a {$MODBUS_ADDRESS}&quot;,&quot;-c {$MODBUS_COUNT}&quot;]</key>
+                    <delay>5m</delay>
+                    <history>1h</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Other</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>5b066efb571742e593573cb662dfa6f9</uuid>
+                    <name>Панель - Ток</name>
+                    <type>DEPENDENT</type>
+                    <key>panel_current</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>А</units>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.panel_current</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>modbus-srne-solar.py[&quot;{HOST.IP}&quot;,&quot;-p {$MODBUS_TCPPORT}&quot;,&quot;-u {$MODBUS_UID}&quot;,&quot;-a {$MODBUS_ADDRESS}&quot;,&quot;-c {$MODBUS_COUNT}&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Panel Information</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>d1816e47c6f74314b7ba29f0bc398cd2</uuid>
+                    <name>Панель - Генерация ЭЭ за сутки</name>
+                    <type>DEPENDENT</type>
+                    <key>panel_gener_kwh</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>КВт/ч</units>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.panel_gener_kwh</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>modbus-srne-solar.py[&quot;{HOST.IP}&quot;,&quot;-p {$MODBUS_TCPPORT}&quot;,&quot;-u {$MODBUS_UID}&quot;,&quot;-a {$MODBUS_ADDRESS}&quot;,&quot;-c {$MODBUS_COUNT}&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Panel Information</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>3a3fd6ecdcc4416999e5a71c9ae0869f</uuid>
+                    <name>Панель - Мощность</name>
+                    <type>DEPENDENT</type>
+                    <key>panel_power</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>Вт</units>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.panel_power</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>modbus-srne-solar.py[&quot;{HOST.IP}&quot;,&quot;-p {$MODBUS_TCPPORT}&quot;,&quot;-u {$MODBUS_UID}&quot;,&quot;-a {$MODBUS_ADDRESS}&quot;,&quot;-c {$MODBUS_COUNT}&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Panel Information</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>5ae11a0f49d74a66aaa7c98076402f3f</uuid>
+                    <name>Панель - Напряжение</name>
+                    <type>DEPENDENT</type>
+                    <key>panel_voltage</key>
+                    <delay>0</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>В</units>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.panel_voltage</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>modbus-srne-solar.py[&quot;{HOST.IP}&quot;,&quot;-p {$MODBUS_TCPPORT}&quot;,&quot;-u {$MODBUS_UID}&quot;,&quot;-a {$MODBUS_ADDRESS}&quot;,&quot;-c {$MODBUS_COUNT}&quot;]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Panel Information</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>865494f400e944cea23782a997795824</uuid>
+                            <expression>count(/modbus-srne-solar/panel_voltage, 24h)=0</expression>
+                            <name>В течении суток нет напряжения от панелей</name>
+                            <event_name>В течении суток нет напряжения от панелей</event_name>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <macros>
+                <macro>
+                    <macro>{$MODBUS_ADDRESS}</macro>
+                    <value>256</value>
+                    <description>Address for scanner. Default value is 256</description>
+                </macro>
+                <macro>
+                    <macro>{$MODBUS_COUNT}</macro>
+                    <value>35</value>
+                    <description>Values count for a scanner. Default value is 35</description>
+                </macro>
+                <macro>
+                    <macro>{$MODBUS_TCPPORT}</macro>
+                    <value>20108</value>
+                    <description>TCP Port of a solar controller. Default value is 20108</description>
+                </macro>
+                <macro>
+                    <macro>{$MODBUS_UID}</macro>
+                    <value>242</value>
+                    <description>Unit ID of a solar controller. Default value is 242</description>
+                </macro>
+                <macro>
+                    <macro>{$TRIG_BAT_VOLT}</macro>
+                    <value>12</value>
+                    <description>Value for battery voltage trigger in Zabbix</description>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <uuid>9bb286db6ed74f2bb5d7eb2809f9617a</uuid>
+            <name>Батарея - Ёмкость</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>modbus-srne-solar</host>
+                        <key>bat_soc</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>3b89ba1ff71d47c3abb7acfbbf205d22</uuid>
+            <name>Батарея - Напряжение</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>modbus-srne-solar</host>
+                        <key>bat_voltage</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>6b4324a58f5048e1954444bcaa7526f8</uuid>
+            <name>Батарея - Ток заряда</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>modbus-srne-solar</host>
+                        <key>bat_charge_current</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>2bd4127ee31b4cb09d743d9552baa402</uuid>
+            <name>Батарея - Ток заряда за сутки</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>modbus-srne-solar</host>
+                        <key>bat_charge_ah</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>c97f4f1fbee647adbd2371181232cd97</uuid>
+            <name>Батарея - Ток разряда за сутки</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>modbus-srne-solar</host>
+                        <key>bat_discharge_ah</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>4ebbff66b8494e31ba5ffc9e69a93487</uuid>
+            <name>Нагрузка - Мощность</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>modbus-srne-solar</host>
+                        <key>load_power</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>68fb9ef8a04642cd850f4abdb3c7fc12</uuid>
+            <name>Нагрузка - Напряжение</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>modbus-srne-solar</host>
+                        <key>load_voltage</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>40c86045f6154fcd9f843e72e617ad8b</uuid>
+            <name>Нагрузка - Потребление ЭЭ за сутки</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>modbus-srne-solar</host>
+                        <key>load_power_consum_kwh</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>2308874d82aa4b5eb8a6caffc005e8ad</uuid>
+            <name>Нагрузка - Ток</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>modbus-srne-solar</host>
+                        <key>load_current</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>cbac7d4a394743e7b7145640d27cff19</uuid>
+            <name>Панель - Генерация ЭЭ за сутки</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>modbus-srne-solar</host>
+                        <key>panel_gener_kwh</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>3e53d46445454be2972d58a14851b617</uuid>
+            <name>Панель - Мощность</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>modbus-srne-solar</host>
+                        <key>panel_power</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>e1921bcea308447d9a5c6b90a022ea7d</uuid>
+            <name>Панель - Напряжение</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>modbus-srne-solar</host>
+                        <key>panel_voltage</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>89f3e7dc3d034364bb1bcb0921489b70</uuid>
+            <name>Панель - Ток</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>modbus-srne-solar</host>
+                        <key>panel_current</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>65369199b4bb443f9174da5c1398cec6</uuid>
+            <name>Температура - Батарея</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>modbus-srne-solar</host>
+                        <key>bat_temperature</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>d107419d39494d868f06dc198cc26a51</uuid>
+            <name>Температура - Устройство</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>modbus-srne-solar</host>
+                        <key>device_temperature</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>
